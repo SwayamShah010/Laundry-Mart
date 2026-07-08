@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaundryMart - Home Pickup & Care</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<header class="main-nav">
+    <div class="brand-identity">Laundry<span>Mart</span></div>
+    <nav>
+        <ul class="menu-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#booking-section">Our Services</a></li>
+            <li><a href="#footer">Get in Touch</a></li>
+        </ul>
+    </nav>
+    <div class="profile-section">
+        <span class="logged-user">👤 Amey</span>
+    </div>
+</header>
+
+<section id="home" class="hero-display">
+    <div class="hero-content">
+        <h1>Give Your Clothes the <span>Expert Care</span> They Deserve</h1>
+        <p>We handle everything from daily wear to premium dry cleaning. Just schedule a time, and we'll pick up from your doorstep.</p>
+        <button class="cta-button" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book My Pickup Now</button>
+    </div>
+    <div class="hero-visual">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlGhaLEtxY4v4V26fDA6n_D6Ckmg90HZeicQ&s" alt="Laundry Illustration">
+    </div>
+</section>
+
+<section class="milestones">
+    <div class="metric"><h3>15+</h3><span>Service Types</span></div>
+    <div class="metric"><h3>240+</h3><span>Local Clients</span></div>
+    <div class="metric"><h3>2+</h3><span>Years Active</span></div>
+</section>
+
+<section id="booking-section" class="order-wrapper">
+
+    <div class="service-selection">
+        <h2 class="title-main">Select Your Services</h2>
+        <p class="subtitle">Choose what you need done, and we’ll calculate the rest.</p>
+
+        <div class="task-box">
+            <div class="task-details">
+                <span class="task-icon">🧺</span>
+                <div class="text-group">
+                    <span class="label-name">Washing and Drying</span>
+                    <span class="label-price">₹10 per piece</span>
+                </div>
+            </div>
+            <button class="add-remove-btn btn-plus" onclick="toggleCart('Washing and Drying', 10, this)">Add</button>
+        </div>
+
+        <div class="task-box">
+            <div class="task-details">
+                <span class="task-icon">👔</span>
+                <div class="text-group">
+                    <span class="label-name">Dry Cleaning</span>
+                    <span class="label-price">₹50 per piece</span>
+                </div>
+            </div>
+            <button onclick="toggleCart('Dry Cleaning', 50, this)" class="add-remove-btn btn-plus">Add</button>
+        </div>
+
+        <div class="task-box">
+            <div class="task-details">
+                <span class="task-icon">🔥</span>
+                <div class="text-group">
+                    <span class="label-name">Steam Ironing</span>
+                    <span class="label-price">₹15 per piece</span>
+                </div>
+            </div>
+            <button class="add-remove-btn btn-plus" onclick="toggleCart('Ironing', 15, this)">Add</button>
+        </div>
+
+        <div class="task-box">
+            <div class="task-details">
+                <span class="task-icon">🧴</span>
+                <div class="text-group">
+                    <span class="label-name">Stain Removal</span>
+                    <span class="label-price">₹25 per piece</span>
+                </div>
+            </div>
+            <button onclick="toggleCart('Stain Removal', 25, this)" class="add-remove-btn btn-plus">Add</button>
+        </div>
+
+        <div class="task-box">
+            <div class="task-details">
+                <span class="task-icon">📦</span>
+                <div class="text-group">
+                    <span class="label-name">Fold & Pack</span>
+                    <span class="label-price">₹5 per piece</span>
+                </div>
+            </div>
+            <button class="add-remove-btn btn-plus" onclick="toggleCart('Fold & Pack', 5, this)">Add</button>
+        </div>
+
+        <p class="user-tip">* You can click "Remove" anytime to change your mind.</p>
+    </div>
+
+    <div class="checkout-area">
+        <h2 class="title-main">Your Selection</h2>
+        
+        <div class="summary-box">
+            <h3>🛒 My Cart</h3>
+            <ul id="cart-list" style="list-style: none; padding: 0;">
+                <li style="color:#64748b; text-align:center; padding:15px;">Your cart is currently empty.</li>
+            </ul>
+            
+            <div id="cart-total" style="display:none; border-top: 1px solid #ddd; padding-top: 10px;">
+                <div class="bill-row"><span>Items Subtotal:</span> <span>₹<span id="total-price">0</span></span></div>
+                <div id="cart-tax" class="bill-row" style="font-size: 0.9em; color: #666;">
+                    <span>GST (5%):</span> <span>₹<span id="tax-price">0.00</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-info-form">
+            <h3>Finalize Details</h3>
+            <form id="contact-form">
+                <div class="input-row">
+                    <label for="full_name">Name</label>
+                    <input type="text" id="full_name" name="from_name" placeholder="Your full name" required />
+                </div>
+
+                <div class="input-row">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="user_email" placeholder="example@mail.com" required />
+                </div>
+
+                <div class="input-row">
+                    <label for="fphone">Mobile Number</label>
+                    <input type="tel" id="fphone" name="user_phone" placeholder="Enter 10-digit number" required />
+                </div>
+
+                <div class="input-row">
+                    <label for="fdate">Date of Pickup</label>
+                    <input type="date" id="fdate" name="fdate" required />
+                </div>
+
+                <div class="input-row">
+                    <label for="ftime">Preferred Time</label>
+                    <select id="ftime" name="ftime" required>
+                        <option value="">-- Choose Slot --</option>
+                        <option>08:00 AM – 10:00 AM</option>
+                        <option>10:00 AM – 12:00 PM</option>
+                        <option>12:00 PM – 02:00 PM</option>
+                        <option>02:00 PM – 04:00 PM</option>
+                        <option>04:00 PM – 06:00 PM</option>
+                    </select>
+                </div>
+
+                <div class="input-row">
+                    <label for="faddress">Full Address</label>
+                    <input type="text" id="faddress" name="faddress" placeholder="House no, Street, Landmark" required />
+                </div>
+
+                <button type="submit" class="submit-order-btn" id="book-btn">Confirm Order 🎉</button>
+            </form>
+
+            <div class="success-notice" id="thank-you-msg">
+                <span class="icon">✨</span>
+                <strong>Order Received!</strong><br>
+                Check your email for confirmation. We'll see you at the scheduled time!
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="email-sub-section">
+    <div class="sub-container">
+        <h2>Stay in the Loop</h2>
+        <p>Join our list for special discounts and laundry care tips.</p>
+        <div class="sub-fields">
+            <input type="text" id="nl-name" placeholder="Name" />
+            <input type="email" id="nl-email" placeholder="Email" />
+            <button class="sub-btn" onclick="subscribeNewsletter()">Join Now</button>
+        </div>
+    </div>
+</section>
+
+<footer id="footer">
+    <div class="footer-grid">
+        <div class="brand-brief">
+            <div class="brand-identity">Laundry<span>Mart</span></div>
+            <p>Reliable cleaning services for your everyday needs. We take the hassle out of laundry day.</p>
+            <div class="social-links">
+                <a href="#">Insta</a> | <a href="#">FB</a> | <a href="#">Twitter</a>
+            </div>
+        </div>
+        
+        <div class="link-group">
+            <h4>Support</h4>
+            <ul class="unstyled-list">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+            </ul>
+        </div>
+
+        <div class="link-group">
+            <h4>Quick Contact</h4>
+            <ul class="unstyled-list">
+                <li>✉️ support@laundrymart.com</li>
+                <li>📞 +91 91234 56780</li>
+                <li>📍 123 Clean Ave, Mumbai</li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <p>© 2026 LaundryMart | Handcrafted by Amey</p>
+    </div>
+</footer>
+
+<div class="toast-popup" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
